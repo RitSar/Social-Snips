@@ -31,11 +31,13 @@ module.exports = {
       body
     }, context) {
       const user = checkAuth(context);
-      console.log(user);
+      if (args.body.trim() === '') 
+        throw new Error('Post must not be empty.');
       const newPost = new Post({body, user: user.id, username: user.username, createdAt: new Date().toISOString()});
       const post = await newPost.save();
       return post;
     },
+
     async deletePost(parent, {
       postId
     }, context) {
