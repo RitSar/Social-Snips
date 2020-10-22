@@ -9,10 +9,11 @@
     "@testing-library/user-event": "^7.2.1",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
+    "jwt-decode": "^3.0.0",
     "moment": "^2.29.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "^3.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
