@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/client";
-import { Header, Segment, Card } from "semantic-ui-react";
+import { Header, Segment, Card, Transition } from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import Post from "../components/Post";
@@ -26,12 +26,14 @@ export default function Home() {
       {loading ? (
         <h1>Loading...</h1>
       ) : (
-        posts &&
-        posts.map((post) => (
-          <Card key={post.id} fluid>
-            <Post post={post} />
-          </Card>
-        ))
+        <Transition.Group>
+          {posts &&
+            posts.map((post) => (
+              <Card key={post.id} fluid>
+                <Post post={post} />
+              </Card>
+            ))}
+        </Transition.Group>
       )}
     </div>
   );

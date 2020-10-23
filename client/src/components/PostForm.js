@@ -49,12 +49,20 @@ export default function PostForm() {
             onChange={onChange}
             value={values.body}
             fluid
+            error={error ? true : false}
           />
           <Button type="submit" color="green" style={{ marginTop: "10px" }}>
             Post
           </Button>
         </Form.Field>
       </Form>
+      {error && (
+        <div className="ui error message">
+          <ul className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
