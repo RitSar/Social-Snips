@@ -5,6 +5,7 @@ import moment from "moment";
 
 import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
+import DeleteButton from "./DeleteButton";
 
 export default function Post({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -30,15 +31,7 @@ export default function Post({
       <LikeButton user={user} post={{ id, likes, likeCount }} />
 
       {user && user.username === username && (
-        <Button
-          as="div"
-          floated="right"
-          color="red"
-          icon
-          onClick={() => console.log("Delete Post")}
-        >
-          <Icon name="trash" />
-        </Button>
+        <DeleteButton postId={id}></DeleteButton>
       )}
 
       <Image
@@ -56,4 +49,3 @@ export default function Post({
     </Card.Content>
   );
 }
-// 4:16:27
