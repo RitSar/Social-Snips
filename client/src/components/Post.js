@@ -6,6 +6,7 @@ import moment from "moment";
 import { AuthContext } from "../context/auth";
 import LikeButton from "./LikeButton";
 import DeleteButton from "./DeleteButton";
+import Tooltip from "../util/Tooltip";
 
 export default function Post({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -14,19 +15,21 @@ export default function Post({
 
   return (
     <Card.Content>
-      <Button
-        floated="right"
-        labelPosition="right"
-        as={Link}
-        to={`/posts/${id}`}
-      >
-        <Button basic color="green">
-          <Icon name="comments" />
+      <Tooltip content="Comment on this post">
+        <Button
+          floated="right"
+          labelPosition="right"
+          as={Link}
+          to={`/posts/${id}`}
+        >
+          <Button basic color="green">
+            <Icon name="comments" />
+          </Button>
+          <Label basic color="green" pointing="left">
+            {commentCount}
+          </Label>
         </Button>
-        <Label basic color="green" pointing="left">
-          {commentCount}
-        </Label>
-      </Button>
+      </Tooltip>
 
       <LikeButton user={user} post={{ id, likes, likeCount }} />
 
