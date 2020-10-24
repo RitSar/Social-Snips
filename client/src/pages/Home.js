@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/client";
-import { Header, Segment, Card, Transition } from "semantic-ui-react";
+import {
+  Header,
+  Segment,
+  Card,
+  Transition,
+  Dimmer,
+  Loader,
+} from "semantic-ui-react";
 
 import { AuthContext } from "../context/auth";
 import Post from "../components/Post";
@@ -24,7 +31,9 @@ export default function Home() {
         <Header as="h3">Recent Posts</Header>
       </Segment>
       {loading ? (
-        <h1>Loading...</h1>
+        <Dimmer active inverted>
+          <Loader inverted>Loading</Loader>
+        </Dimmer>
       ) : (
         <Transition.Group>
           {posts &&

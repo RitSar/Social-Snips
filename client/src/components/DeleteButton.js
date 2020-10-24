@@ -5,23 +5,28 @@ import { Button, Confirm, Icon } from "semantic-ui-react";
 
 import { FETCH_POSTS_QUERY } from "../util/graphql";
 
-export default function DeleteButton({ postId, callback }) {
+export default function DeleteButton({ postId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
 
-  const [deletePost] = useMutation(DELETE_POST_MUTATION, {
+  const [deletePostOrComment] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false);
-      let data = proxy.readQuery({
-        query: FETCH_POSTS_QUERY,
-      });
-      let newDataGroups = [...data.getPosts];
-      newDataGroups = data.getPosts.filter((p) => p.id !== postId);
-      data = { ...data, getPosts: newDataGroups };
-      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      if (!commentId) {
+        let data = proxy.readQuery({
+          query: FETCH_POSTS_QUERY,
+        });
+        let newDataGroups = [...data.getPosts];
+        newDataGroups = data.getPosts.filter((p) => p.id !== postId);
+        data = { ...data, getPosts: newDataGroups };
+        proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      }
+
       if (callback) callback();
     },
     variables: {
       postId,
+      commentId,
     },
   });
   return (
@@ -38,7 +43,7 @@ export default function DeleteButton({ postId, callback }) {
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
-        onConfirm={deletePost}
+        onConfirm={deletePostOrComment}
       />
     </>
   );
@@ -49,4 +54,17 @@ const DELETE_POST_MUTATION = gql`
     deletePost(postId: $postId)
   }
 `;
-// 4:55:52
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($postId: ID!, $commentId: ID!) {
+    deleteComment(postId: $postId, commentId: $commentId) {
+      id
+      comments {
+        id
+        username
+        createdAt
+        body
+      }
+      commentCount
+    }
+  }
+`;
