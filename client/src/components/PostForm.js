@@ -10,7 +10,7 @@ export default function PostForm() {
   const { values, onChange, onSubmit } = useForm(createPostCallback, {
     body: "",
   });
-
+  // const [text, setText] = useState("");
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: values,
     update(proxy, result) {
@@ -51,7 +51,7 @@ export default function PostForm() {
             fluid
             error={error ? true : false}
           />
-          <Button type="submit" color="green" style={{ marginTop: "10px" }}>
+          <Button type="submit" color="teal" style={{ marginTop: "10px" }}>
             Post
           </Button>
         </Form.Field>

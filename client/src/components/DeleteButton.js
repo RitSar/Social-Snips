@@ -46,8 +46,11 @@ export default function DeleteButton({ postId, commentId, callback }) {
 
       <Confirm
         open={confirmOpen}
+        cancelButton="Cancel"
+        confirmButton="Confirm"
         onCancel={() => setConfirmOpen(false)}
         onConfirm={deletePostOrComment}
+        content="Are you sure you want to delete this post?"
       />
     </>
   );

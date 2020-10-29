@@ -1,3 +1,9 @@
+body {
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/connected.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
 .heading {
   margin-top: 10px !important;
   text-align: center;
@@ -6,4 +12,24 @@
   width: 80%;
   margin: auto;
   margin-top: 10px !important;
+}
+.container {
+  min-height: calc(100vh - 90px);
+}
+.footer {
+  height: 70px;
+  padding: 25px;
+  background-color: black;
+  color: #fff;
+  margin-top: 20px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+::-webkit-scrollbar-thumb {
+  background: #00acac;
+  border-radius: 10px;
 }
